@@ -1,9 +1,10 @@
 (use /craft-bin)
 
 # Components
-(def-component ball :color :keyword :radius :number)
+(def-component ball :color :any :radius :number)
 (def-component position :x :number :y :number)
 (def-component velocity :x :number :y :number)
+
 
 # Systems
 (defn flip-x [vel]
@@ -45,15 +46,15 @@
   (add-entity world
               (position :x 10 :y 10)
               (velocity :x 1 :y 1)
-              (ball :color :red :radius 24))
+              (ball :color orangey-red :radius 24))
   (add-entity world
               (position :x 100 :y 20)
               (velocity :x 1.5 :y -1)
-              (ball :color :blue :radius 20))
+              (ball :color medium-blue :radius 20))
   (add-entity world
               (position :x 100 :y 20)
               (velocity :x -1.75 :y 1.4)
-              (ball :color :green :radius 14))
+              (ball :color kelley-green :radius 14))
   (register-system world move-n-bounce)
   (register-system world draw-ball))
 
