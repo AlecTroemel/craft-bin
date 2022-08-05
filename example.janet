@@ -42,7 +42,7 @@
 
 
 # Gamestate & Entity Creation
-(def-rubish-gamestate main-game [{:world world}]
+(def-gamestate main-game [{:world world}]
   (add-entity world
               (position :x 10 :y 10)
               (velocity :x 1 :y 1)
