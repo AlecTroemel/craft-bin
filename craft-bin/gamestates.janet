@@ -2,15 +2,18 @@
 (use jaylib)
 (use junk-drawer)
 
+(use ./physics)
 (use ./juice)
 
 (def GS (gamestate/init))
 
-(defmacro def-gamestate [name args & body]
+(defmacro def-gamestate [name & body]
   ~(def ,name @{:name ,(string (keyword name))
                 :world (create-world)
                 # :camera (camera-2d :zoom 1.0 :offset (SHAKE :offset))
-                :init (fn ,args ,;body)
+                :init (fn [{:world world}]
+                        (,register-physics world)
+                        ,;body)
                 :update (fn [self dt]
                           (let [camera (camera-2d :zoom 1.0 :offset (SHAKE :offset))]
                             (begin-mode-2d camera)
@@ -22,10 +25,3 @@
 
 (defmacro goto [name]
   ~(:push GS ,name))
-
-(defmacro def-update-system [name queries & body]
-  ['def-system name queries
-   ~(when (not (frozen?)) ,;body)])
-
-(defmacro def-draw-system [name queries & body]
-  ['def-system name queries ;body])

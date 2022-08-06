@@ -2,9 +2,6 @@
 
 # Components
 (def-component ball :color :any :radius :number)
-(def-component position :x :number :y :number)
-(def-component velocity :x :number :y :number)
-
 
 # Systems
 (defn flip-x [vel]
@@ -17,12 +14,9 @@
   (freeze! :frames 4)
   (put vel :y (* -1 (vel :y))))
 
-(def-update-system move-n-bounce
-  {moveables [:position :velocity :ball]}
-  (each [pos vel b] moveables
-    # update position
-    (put pos :x (+ (pos :x) (* dt (vel :x))))
-    (put pos :y (+ (pos :y) (* dt (vel :y))))
+(def-update-system bounce-ball
+  {bouncies [:position :velocity :ball]}
+  (each [pos vel b] bouncies
 
     # Bound off of walls
     (when (and (<= (- (pos :x) (b :radius)) 0) (<= (vel :x) 0))
@@ -42,7 +36,7 @@
 
 
 # Gamestate & Entity Creation
-(def-gamestate main-game [{:world world}]
+(def-gamestate main-game
   (add-entity world
               (position :x 100 :y 100)
               (velocity :x 1 :y 1)
@@ -55,7 +49,7 @@
               (position :x 100 :y 20)
               (velocity :x -1.75 :y 1.4)
               (ball :color kelley-green :radius 14))
-  (register-system world move-n-bounce)
+  (register-system world bounce-ball)
   (register-system world draw-ball))
 
 (goto main-game)
