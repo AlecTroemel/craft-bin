@@ -10,7 +10,6 @@
 (use jaylib)
 
 (use ./gamestates)
-(use ./juice)
 
 (def SCREEN_WIDTH 256)
 (def SCREEN_HEIGHT 144)
@@ -33,23 +32,18 @@
         target (load-render-texture SCREEN_WIDTH SCREEN_HEIGHT)]
 
     (while (not (window-should-close))
+
       (begin-texture-mode target)
-      (clear-background :ray-white)
-
-      (let [world-space-camera (camera-2d :zoom 1.0
-                                          :offset (SHAKE :offset))]
-        (begin-mode-2d world-space-camera)
+        (clear-background :ray-white)
         (:update GS 1)
-        (end-mode-2d))
-
       (end-texture-mode)
 
       (begin-drawing)
-      (clear-background :red)
-      (begin-mode-2d screen-space-camera)
-      (draw-texture-pro (get-render-texture-texture2d target)
-                        source-rect dest-rect [0 0] 0.0 :white)
-      (end-mode-2d)
+        (clear-background :red)
+        (begin-mode-2d screen-space-camera)
+        (draw-texture-pro (get-render-texture-texture2d target)
+                          source-rect dest-rect [0 0] 0.0 :white)
+        (end-mode-2d)
       (end-drawing))
 
     (unload-render-texture target)

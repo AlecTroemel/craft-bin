@@ -1,4 +1,5 @@
 # Global Gamestate helpers
+(use jaylib)
 (use junk-drawer)
 
 (use ./juice)
@@ -8,9 +9,14 @@
 (defmacro def-gamestate [name args & body]
   ~(def ,name @{:name ,(string (keyword name))
                 :world (create-world)
+                # :camera (camera-2d :zoom 1.0 :offset (SHAKE :offset))
                 :init (fn ,args ,;body)
                 :update (fn [self dt]
-                          (:update (self :world) dt)
+                          (let [camera (camera-2d :zoom 1.0 :offset (SHAKE :offset))]
+                            (begin-mode-2d camera)
+                            (:update (self :world) dt)
+                            (end-mode-2d))
+
                           (freeze-tic)
                           (shake-tic))}))
 
