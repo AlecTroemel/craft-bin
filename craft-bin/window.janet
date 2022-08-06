@@ -17,11 +17,12 @@
 (def REAL_SCREEN_WIDTH 1280)
 (def REAL_SCREEN_HEIGHT 720)
 
-(defn start []
+(defn init []
   (init-window REAL_SCREEN_WIDTH REAL_SCREEN_HEIGHT "Test Game")
   (set-target-fps 60)
-  (hide-cursor)
+  (hide-cursor))
 
+(defn start []
   (let [virtual-ratio (/ REAL_SCREEN_WIDTH SCREEN_WIDTH)
         source-rect [0 0 SCREEN_WIDTH SCREEN_HEIGHT]
         dest-rect [(- virtual-ratio) (- virtual-ratio)

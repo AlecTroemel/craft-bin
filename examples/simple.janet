@@ -1,5 +1,7 @@
 (use /craft-bin)
 
+(init)
+
 # Components
 (def-component ball :color :any :radius :number)
 
