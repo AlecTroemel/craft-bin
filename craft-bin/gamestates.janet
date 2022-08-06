@@ -11,7 +11,8 @@
                 :init (fn ,args ,;body)
                 :update (fn [self dt]
                           (:update (self :world) dt)
-                          (freeze-tic))}))
+                          (freeze-tic)
+                          (shake-tic))}))
 
 (defmacro goto [name]
   ~(:push GS ,name))

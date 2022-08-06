@@ -8,7 +8,7 @@
 
 # Systems
 (defn flip-x [vel]
-  (shake! :frames 8 :intensity 2)
+  (shake! :frames 8 :intensity 10)
   (freeze! :frames 4)
   (put vel :x (* -1 (vel :x))))
 
@@ -44,7 +44,7 @@
 # Gamestate & Entity Creation
 (def-gamestate main-game [{:world world}]
   (add-entity world
-              (position :x 10 :y 10)
+              (position :x 100 :y 100)
               (velocity :x 1 :y 1)
               (ball :color orangey-red :radius 24))
   (add-entity world
