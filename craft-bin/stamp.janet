@@ -44,8 +44,7 @@
                            font-w font-h]
                           [(+ (pos :x) (* (offset 0) font-w))
                            (+ (pos :y) (* (offset 1) font-h))]
-                          :white))))
-  )
+                          :white)))))
 
 
 (defn register-stamps [world]

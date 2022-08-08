@@ -11,16 +11,15 @@
 (defmacro def-gamestate [name & body]
   ~(def ,name @{:name ,(string (keyword name))
                 :world (,create-world)
+                :camera-target @{:x 0 :y 0}
+                :camera-offset @{:x 0 :y 0}
+
                 :init (fn [{:world world}]
                         (,register-physics world)
                         (,register-stamps world)
                         ,;body)
                 :update (fn [self dt]
-                          (let [camera (camera-2d :zoom 1.0 :offset (SHAKE :offset))]
-                            (,begin-mode-2d camera)
-                              (:update (self :world) dt)
-                            (,end-mode-2d))
-
+                          (:update (self :world) dt)
                           (,freeze-tic)
                           (,shake-tic))}))
 
