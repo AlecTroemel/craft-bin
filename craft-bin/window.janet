@@ -40,10 +40,8 @@
                           [(* (- camera-x rounded-camera-x) VIRTUAL_RATIO)
                            (* (- camera-y rounded-camera-y) VIRTUAL_RATIO)])))
 
-
-
 (defn start []
-  (let [source-rect [0 0 SCREEN_WIDTH SCREEN_HEIGHT]
+  (let [source-rect [0 0 SCREEN_WIDTH (- SCREEN_HEIGHT)]
         dest-rect [(- VIRTUAL_RATIO) (- VIRTUAL_RATIO)
                    (+ REAL_SCREEN_WIDTH (* VIRTUAL_RATIO 2))
                    (+ REAL_SCREEN_HEIGHT (* VIRTUAL_RATIO 2))]
