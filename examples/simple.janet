@@ -36,7 +36,6 @@
   (each [{:x x :y y} {:color c :radius r}] balls
     (draw-circle (math/floor x) (math/floor y) r c)))
 
-
 # Gamestate & Entity Creation
 (def-gamestate main-game
   (add-entity world

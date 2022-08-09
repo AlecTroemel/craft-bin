@@ -6,7 +6,7 @@
 (defn frozen? [] (> FREEZE 0))
 
 # Screen Shake
-(var SHAKE @{:frames 0 :intensity 0 :offset @[0 0]})
+(var SHAKE @{:frames 0 :intensity 0 :offset [0 0]})
 
 (defn shake! [&named frames intensity]
   (put SHAKE :frames frames)
@@ -16,9 +16,7 @@
 
 (defn shake-tic []
   (put SHAKE :frames (max 0 (- (SHAKE :frames) 1)))
-  (if (shaking?)
-    (do (put-in SHAKE [:offset 0] (* (SHAKE :intensity) (- (math/random) 0.5)))
-        (put-in SHAKE [:offset 1] (* (SHAKE :intensity) (- (math/random) 0.5))))
-    (do (put SHAKE :intensity 0)
-        (put-in SHAKE [:offset 0] 0)
-        (put-in SHAKE [:offset 1] 0))))
+  (put SHAKE :offset (if (shaking?)
+                       [(* (SHAKE :intensity) (- (math/random) 0.5))
+                        (* (SHAKE :intensity) (- (math/random) 0.5))]
+                       [0 0])))

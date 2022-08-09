@@ -25,20 +25,19 @@
   (hide-cursor))
 
 (defn apply-gamestate-camera-offset [world-space-camera]
-  (let [gs-offset (get-in GS [:current :camera-offset] {:x 0 :y 0})
-        x (gs-offset :x)
-        y (gs-offset :y)]
-    (set-camera-2d-offset world-space-camera [x y])))
+  (put world-space-camera :offset
+     (get (:current GS) :camera-offset [0 0])))
 
 (defn round-worldspace-coordinates [world-space-camera screen-space-camera]
   "Round worldSpace coordinates, keep decimals into screenSpace coordinates."
-  (let [{:x camera-x :y camera-y} (get (:current GS) :camera-target {:x 0 :y 0})
+  (let [[camera-x camera-y] (get (:current GS) :camera-target [0 0])
         rounded-camera-x (math/round camera-x)
         rounded-camera-y (math/round camera-y)]
-    (set-camera-2d-target world-space-camera [rounded-camera-x rounded-camera-y])
-    (set-camera-2d-target screen-space-camera
-                          [(* (- camera-x rounded-camera-x) VIRTUAL_RATIO)
-                           (* (- camera-y rounded-camera-y) VIRTUAL_RATIO)])))
+    (put world-space-camera :target
+       [rounded-camera-x rounded-camera-y])
+    (put screen-space-camera :target
+       [(* (- camera-x rounded-camera-x) VIRTUAL_RATIO)
+        (* (- camera-y rounded-camera-y) VIRTUAL_RATIO)])))
 
 (defn start []
   (let [source-rect [0 0 SCREEN_WIDTH (- SCREEN_HEIGHT)]
