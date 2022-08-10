@@ -23,12 +23,12 @@
     # Bound off of walls
     (when (and (<= (- (pos :x) (b :radius)) 0) (<= (vel :x) 0))
       (flip-x vel))
-    (when (and (>= (+ (pos :x) (b :radius)) SCREEN_WIDTH) (>= (vel :x) 0))
+    (when (and (>= (+ (pos :x) (b :radius)) GAME_SCREEN_WIDTH) (>= (vel :x) 0))
       (flip-x vel))
 
     (when (and (<= (- (pos :y) (b :radius)) 0) (<= (vel :y) 0))
       (flip-y vel))
-    (when (and (>= (+ (pos :y) (b :radius)) SCREEN_HEIGHT) (>= (vel :y) 0))
+    (when (and (>= (+ (pos :y) (b :radius)) GAME_SCREEN_HEIGHT) (>= (vel :y) 0))
       (flip-y vel))))
 
 (def-draw-system draw-ball
