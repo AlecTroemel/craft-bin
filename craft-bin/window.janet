@@ -1,8 +1,7 @@
 # DONE Smooth Pixel Perfect renderer with raylib
-# TODO setup raylib camera
-
-
-# TODO CRT shader
+# DONE setup raylib camera
+# DONE window resize scales inner screen
+# TODO CRT/paper/somesortoffun shader
 # - https://www.shadertoy.com/view/XsjSzR
 # - https://www.reddit.com/r/crtgaming/comments/f6rcxy/modern_pixel_art_games_on_crts_are_my_aesthetic/
 # - https://babylonjs.medium.com/retro-crt-shader-a-post-processing-effect-study-1cb3f783afbc

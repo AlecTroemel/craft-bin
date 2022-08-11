@@ -1,4 +1,5 @@
 # TODO "text mode" abstraction, think similar to tic-80's map
+# void ImageDrawTextEx(Image *dst, Font font, const char *text, Vector2 position, float fontSize, float spacing, Color tint);
 (use jaylib)
 (use junk-drawer)
 
