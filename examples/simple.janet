@@ -7,7 +7,7 @@
 
 # Systems
 (defn flip-x [vel]
-  (shake! :frames 8 :intensity 10)
+  (shake! :frames 8 :intensity 2)
   (freeze! :frames 4)
   (put vel :x (* -1 (vel :x))))
 
@@ -51,9 +51,8 @@
 
 # Gamestate & Entity Creation
 (def-gamestate main-game
-  (create-ball world orangey-red 150 100)
-  (create-ball world medium-blue 150 100)
-  (create-ball world kelley-green 150 100)
+  (for i 0 10
+    (create-ball world (random-choice pallette rng) 150 100))
 
   (register-system world bounce-ball)
   (register-system world draw-ball))

@@ -33,3 +33,37 @@
 (def kelley-green 0x11963bff)
 (def toxic-green 0x51e113ff)
 (def bright-teal 0x08fdccff)
+
+(def pallette
+  [pinkish-tan
+   orangey-red
+   rouge
+   strong-pink
+   bubblegum-pink
+   pink-purple
+   warm-purple
+   burgundy
+   navy-blue
+   blue-purple
+   medium-blue
+   azure
+   robins-egg
+   blue-green
+   dark-aqua
+   dark-forest-green
+   black
+   charcoal-grey
+   greyish-purple
+   light-periwinkle
+   white
+   greenish-grey
+   medium-grey
+   brown
+   umber
+   yellowish-orange
+   yellowish
+   pea-soup
+   mud-green
+   kelley-green
+   toxic-green
+   bright-teal])
