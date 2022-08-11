@@ -7,13 +7,13 @@
 
 # Systems
 (defn flip-x [vel]
-  # (shake! :frames 8 :intensity 10)
-  # (freeze! :frames 4)
+  (shake! :frames 8 :intensity 10)
+  (freeze! :frames 4)
   (put vel :x (* -1 (vel :x))))
 
 (defn flip-y [vel]
-  # (shake! :frames 8 :intensity 2)
-  # (freeze! :frames 4)
+  (shake! :frames 8 :intensity 2)
+  (freeze! :frames 4)
   (put vel :y (* -1 (vel :y))))
 
 (def-update-system bounce-ball
@@ -38,10 +38,9 @@
 
 (def rng (math/rng (os/time)))
 (defn create-ball [world col x y]
-  (let [vx (- (* 10 (math/rng-uniform rng)) 5)
-        vy (- (* 10 (math/rng-uniform rng)) 5)
-        m (math/rng-int rng 10)
-       ]
+  (let [vx (- (* 20 (math/rng-uniform rng)) 10)
+        vy (- (* 20 (math/rng-uniform rng)) 10)
+        m (math/rng-int rng 10)]
     (add-entity world
                 (position :x x :y y)
                 (velocity :x vx :y vy)

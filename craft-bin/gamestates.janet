@@ -4,7 +4,7 @@
 
 (use ./physics)
 (use ./juice)
-(use ./stamp)
+
 
 (def GS (gamestate/init))
 
@@ -16,7 +16,6 @@
 
                 :init (fn [{:world world}]
                         (,register-physics world)
-                        (,register-stamps world)
                         ,;body)
 
                 :update (fn [self dt]

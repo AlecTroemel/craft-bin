@@ -8,5 +8,3 @@
 (import ./craft-bin/pallette :prefix "" :export true)
 (import ./craft-bin/juice :prefix "" :export true)
 (import ./craft-bin/physics :prefix "" :export true)
-
-(import ./craft-bin/stamp :prefix "" :export true)
