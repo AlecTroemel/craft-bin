@@ -38,23 +38,23 @@
 
 (def rng (math/rng (os/time)))
 (defn create-ball [world col x y]
-  (let [vx (- (* 4 (math/rng-uniform rng)) 2)
-        vy (- (* 4 (math/rng-uniform rng)) 2)
-        m 1 # (math/rng-int rng 10)
+  (let [vx (- (* 10 (math/rng-uniform rng)) 5)
+        vy (- (* 10 (math/rng-uniform rng)) 5)
+        m (math/rng-int rng 10)
        ]
     (add-entity world
                 (position :x x :y y)
-                (velocity :x 2 :y 0)
+                (velocity :x vx :y vy)
                 (acceleration :x 0 :y 0)
-                (gravity :x 0 :y 0.1)
+                (gravity :x 0 :y 0)
                 (mass :val m)
-                (ball :color col :radius 16))))
+                (ball :color col :radius (* m 2)))))
 
 # Gamestate & Entity Creation
 (def-gamestate main-game
-  (create-ball world orangey-red 0 100)
-  # (create-ball world medium-blue 150 100)
-  # (create-ball world kelley-green 150 100)
+  (create-ball world orangey-red 150 100)
+  (create-ball world medium-blue 150 100)
+  (create-ball world kelley-green 150 100)
 
   (register-system world bounce-ball)
   (register-system world draw-ball))
