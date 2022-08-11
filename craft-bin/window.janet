@@ -47,8 +47,8 @@
     (while (not (window-should-close))
       (let [screen-width (get-screen-width)
             screen-height (get-screen-height)
-            scale (min (/ screen-width GAME_SCREEN_WIDTH)
-                       (/ screen-height GAME_SCREEN_HEIGHT))
+            scale (min (math/floor (/ screen-width GAME_SCREEN_WIDTH))
+                       (math/floor (/ screen-height GAME_SCREEN_HEIGHT)))
             source-rect [0 0 GAME_SCREEN_WIDTH (- GAME_SCREEN_HEIGHT)]
             dest-rect [(/ (- screen-width (* GAME_SCREEN_WIDTH scale)) 2)
                        (/ (- screen-height (* GAME_SCREEN_HEIGHT scale)) 2)
