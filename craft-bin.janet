@@ -9,3 +9,4 @@
 (import ./craft-bin/pallette :prefix "" :export true)
 (import ./craft-bin/juice :prefix "" :export true)
 (import ./craft-bin/physics :prefix "" :export true)
+(import ./craft-bin/shapes :prefix "" :export true)

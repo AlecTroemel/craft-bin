@@ -3,6 +3,7 @@
 (use junk-drawer)
 
 (use ./physics)
+(use ./shapes)
 (use ./juice)
 
 
@@ -16,6 +17,7 @@
 
                 :init (fn [{:world world}]
                         (,register-physics world)
+                        (,register-shapes world)
                         ,;body)
 
                 :update (fn [self dt]
