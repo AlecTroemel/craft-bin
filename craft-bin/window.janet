@@ -40,7 +40,10 @@
        [(* (- camera-x rounded-camera-x) scale)
         (* (- camera-y rounded-camera-y) scale)])))
 
-(defn start []
+(defn start [&opt starting-gamestate]
+  (when starting-gamestate
+    (goto starting-gamestate))
+
   (let [world-space-camera (camera-2d :zoom 1.0 )
         screen-space-camera (camera-2d :zoom 1.0)
         target (load-render-texture GAME_SCREEN_WIDTH GAME_SCREEN_HEIGHT)]

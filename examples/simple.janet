@@ -92,5 +92,4 @@
   (register-system world draw-circle)
   (register-system world shake-physics-bodies))
 
-(goto main-game)
-(start)
+(start main-game)
