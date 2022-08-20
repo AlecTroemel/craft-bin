@@ -1,45 +1,31 @@
 (use junk-drawer)
+(use chipmunk)
 
 (use ./systems)
-(use ./vector)
 
-(defn position [&named x y] (vector x y))
-(defn velocity [&named x y] (vector x y))
-(defn acceleration [&named x y] (vector x y))
-(defn gravity [&named x y] (vector x y))
+(defn physics-body [{:body body :shape shape} &named friction elasticity position velocity]
+  (default friction 0.7)
+  (default elasticity 0.9)
+  (default position [0 0])
+  (default velocity [0 0])
 
-(def-component mass :val :number)
+  (shape-set-friction shape friction)
+  (shape-set-elasticity shape elasticity)
+  (body-set-position body position)
+  (body-set-velocity body velocity)
 
-(def-update-system apply-friction
-  {moveables [:acceleration :velocity :mass]}
-  (each [acc vel {:val mas}] moveables
-    (:add-vec acc (-> vel
-                      (:clone)
-                      (:mult (* -1 0.01 mas))))))
+  {:body body :shape shape})
 
-(def-update-system apply-gravity
-  {moveables [:acceleration :gravity]}
-  (each [acc grav] moveables
-    (:add-vec acc grav)))
+(defn circle-body [space mass radius]
+  (let [moment (moment-for-circle mass 0 radius [0 0])
+        body (space-add-body space (body-new mass moment))
+        shape (space-add-shape space (circle-shape-new body radius [0 0]))]
+    {:body body :shape shape}))
 
-(def-update-system apply-acceleration
-  {moveables [:velocity :acceleration]}
-  (each [vel acc] moveables
-    (:add-vec vel (-> acc (:clone) (:mult dt)))))
+(defn box-body [space mass width height]
+  (let [moment (moment-for-box mass width height)
+        body (space-add-body space (body-new mass moment))
+        shape (space-add-shape space (box-shape-new body width height 1))]
+    {:body body :shape shape}))
 
-(def-update-system apply-velocity
-  {moveables [:position :velocity]}
-  (each [pos vel] moveables
-    (:add-vec pos (-> vel (:clone) (:mult dt)))))
-
-(def-update-system reset-acceleration
-  {moveables [:acceleration]}
-  (each [acc] moveables
-    (:mult acc 0)))
-
-(defn register-physics [world]
-  (register-system world apply-friction)
-  (register-system world apply-gravity)
-  (register-system world apply-acceleration)
-  (register-system world apply-velocity)
-  (register-system world reset-acceleration))
+(defn register-physics [world] nil)

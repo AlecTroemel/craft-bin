@@ -15,6 +15,8 @@
 
 (var START_SCREEN_WIDTH 1280)
 (var START_SCREEN_HEIGHT 720)
+(var FRAME_RATE 60)
+(var TIME_STEP (/ 1 FRAME_RATE))
 
 (defn init []
   (set-config-flags :window-resizable :vsync-hint)
@@ -58,8 +60,7 @@
 
         (begin-texture-mode target)
           (begin-mode-2d world-space-camera)
-            (clear-background :ray-white)
-            (:update GS 1)
+            (:update GS TIME_STEP)
           (end-mode-2d)
         (end-texture-mode)
 
