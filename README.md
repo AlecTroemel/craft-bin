@@ -1,4 +1,4 @@
-# Craft Bin
+# Craft Bin.. not a lot here yet!
 
 ```janet
 (def craft-bin
