@@ -26,10 +26,10 @@
          tile :in (layer :autoLayerTiles)
          :let [tid (layer :__tilesetDefUid)
                {:texture texture :grid-size gs} (get-in self [:tilesets tid])
-               {:px position :src [tile-x tile-y]} tile
-               tile-rec [(+ tile-x camera-offset-x)
-                         (+ tile-y camera-offset-y)
-                         gs gs]]]
+               {:px [px py] :src [tx ty]} tile
+               position [(+ px camera-offset-x)
+                         (+ py camera-offset-y)]
+               tile-rec [tx ty gs gs]]]
     (draw-texture-rec texture
                       tile-rec
                       position
