@@ -27,11 +27,11 @@
 
 (defn apply-gamestate-camera-offset [world-space-camera]
   (put world-space-camera :offset
-     (get (:current GS) :camera-offset [0 0])))
+     (get (:current *GS*) :camera-offset [0 0])))
 
 (defn round-worldspace-coordinates [world-space-camera screen-space-camera scale]
   "Round worldSpace coordinates, keep decimals into screenSpace coordinates."
-  (let [[camera-x camera-y] (get (:current GS) :camera-target [0 0])
+  (let [[camera-x camera-y] (get (:current *GS*) :camera-target [0 0])
         rounded-camera-x (math/round camera-x)
         rounded-camera-y (math/round camera-y)]
     (put world-space-camera :target
@@ -63,7 +63,7 @@
 
         (begin-texture-mode target)
           (begin-mode-2d world-space-camera)
-            (:update GS TIME_STEP)
+            (:update *GS* TIME_STEP)
           (end-mode-2d)
         (end-texture-mode)
 

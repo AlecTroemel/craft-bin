@@ -29,7 +29,7 @@
   {circles [:physics-body :circle :color]}
   (each [{:body body :shape shape} {:radius r} {:main mc :shadow sc}] circles
     (let [[x y] (map math/floor (body-get-position body))]
-      (draw-circle x (+ y 1) r sc)
+      (draw-circle (+ x 1) (+ y 1) r sc) # shadow
       (draw-circle x y r mc))))
 
 (def-draw-system draw-box
@@ -39,7 +39,7 @@
           x (math/floor (- center-x (/ w 2)))
           y (math/floor (- center-y (/ h 2)))]
 
-      (draw-rectangle x (+ y 1) w h sc)
+      (draw-rectangle (+ x 1) (+ y 1) w h sc) # shadow
       (draw-rectangle x y w h mc))))
 
 (defn create-ball [world space]
@@ -83,13 +83,13 @@
       (body-set-velocity body [(-> (math/rng-uniform RNG) (- 0.5) (* 500))
                                (-> (math/rng-uniform RNG) (- 0.5) (* 500))]))))
 
-(def-gamestate main-game
-  (create-walls space)
-  (for i 0 10
-    (create-ball world space)
-    (create-box world space))
-  (register-system world draw-box)
-  (register-system world draw-circle)
-  (register-system world shake-physics-bodies))
+(crafty-gamestate :main-game
+   (create-walls space)
+   (for i 0 10
+     (create-ball world space)
+     (create-box world space))
+   (register-system world draw-box)
+   (register-system world draw-circle)
+   (register-system world shake-physics-bodies))
 
-(start main-game)
+(start :main-game)
