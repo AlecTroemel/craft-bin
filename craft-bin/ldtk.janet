@@ -21,17 +21,24 @@
             {:texture (load-texture (string "examples/" relpath))
              :grid-size grid-size})))
 
+(defn flipped-tile-rect [tx ty gs flip-bits]
+  (match flip-bits
+    0 [tx ty gs gs]
+    1 [tx ty (- 0 gs) gs]
+    2 [tx ty gs (- 0 gs)]
+    3 [tx ty (- 0 gs) (- 0 gs)]))
+
 (defn- level-draw [self [camera-offset-x camera-offset-y]]
   (loop [layer :in (self :layerInstances)
          tile :in (layer :autoLayerTiles)
          :let [tid (layer :__tilesetDefUid)
                {:texture texture :grid-size gs} (get-in self [:tilesets tid])
-               {:px [px py] :src [tx ty]} tile
+               {:px [px py] :src [tx ty] :f flip-bits} tile
                position [(+ px camera-offset-x)
                          (+ py camera-offset-y)]
-               tile-rec [tx ty gs gs]]]
+               tile-rect (flipped-tile-rect tx ty gs flip-bits)]]
     (draw-texture-rec texture
-                      tile-rec
+                      tile-rect
                       position
                       white)))
 
