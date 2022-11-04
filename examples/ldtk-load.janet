@@ -11,7 +11,7 @@
            (put self :lvl (ldtk-level (self :project) 0)))
    :update (fn main-update [self dt]
              (:clear-background (self :lvl))
-             (:draw (self :lvl))))
+             (:draw (self :lvl) (self :camera-offset))))
 
 (:add-state *GS* main)
 (start :main)

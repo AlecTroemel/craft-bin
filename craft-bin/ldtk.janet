@@ -21,13 +21,15 @@
             {:texture (load-texture (string "examples/" relpath))
              :grid-size grid-size})))
 
-(defn- level-draw [self]
+(defn- level-draw [self [camera-offset-x camera-offset-y]]
   (loop [layer :in (self :layerInstances)
          tile :in (layer :autoLayerTiles)
          :let [tid (layer :__tilesetDefUid)
                {:texture texture :grid-size gs} (get-in self [:tilesets tid])
-               {:px position :src [tx ty]} tile
-               tile-rec [tx ty gs gs]]]
+               {:px position :src [tile-x tile-y]} tile
+               tile-rec [(+ tile-x camera-offset-x)
+                         (+ tile-y camera-offset-y)
+                         gs gs]]]
     (draw-texture-rec texture
                       tile-rec
                       position
