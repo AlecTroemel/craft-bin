@@ -28,19 +28,35 @@
     2 [tx ty gs (- 0 gs)]
     3 [tx ty (- 0 gs) (- 0 gs)]))
 
-(defn- level-draw [self [camera-offset-x camera-offset-y]]
-  (loop [layer :in (self :layerInstances)
-         tile :in (layer :autoLayerTiles)
-         :let [tid (layer :__tilesetDefUid)
-               {:texture texture :grid-size gs} (get-in self [:tilesets tid])
+(defn- level-draw-autolayer [layer tilesets camera]
+  (loop [tile :in (layer :autoLayerTiles)
+         :let [{:__tilesetDefUid tid
+                :parallaxScaling parallax?
+                :parallaxFactorX parallax-x
+                :parallaxFactory parallax-y} layer
+               {:texture texture :grid-size gs} (get tilesets tid)
                {:px [px py] :src [tx ty] :f flip-bits} tile
-               position [(+ px camera-offset-x)
-                         (+ py camera-offset-y)]
+               position [(+ px (camera 0))
+                         (+ py (camera 1))]
+               position (if parallax?
+                          [(* (position 0) parallax-x)
+                           (* (position 1) parallax-y)]
+                          position)
+
                tile-rect (flipped-tile-rect tx ty gs flip-bits)]]
     (draw-texture-rec texture
                       tile-rect
                       position
                       white)))
+
+(defn- level-draw [self &named camera]
+  (default camera [0 0])
+  (loop [layer :in (reverse (self :layerInstances))
+         :let [layer-type (layer :__type)]]
+    (match layer-type
+      "IntGrid" (level-draw-autolayer layer
+                                      (get self :tilesets)
+                                      camera))))
 
 (defn- level-clear-background [self]
   (clear-background (get self :bg-color)))

@@ -20,7 +20,8 @@
                         32))
              (+= t 0.01)
              (:clear-background (self :lvl))
-             (:draw (self :lvl) (self :camera-offset))))
+             (:draw (self :lvl)
+                    :camera (self :camera-offset))))
 
 (:add-state *GS* main)
 (start :main)
